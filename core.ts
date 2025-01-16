@@ -1,33 +1,10 @@
 export class CommandCore {
-  private readonly bot: Bot;
-  private core: {
-    name: string,
-    color: string
-  };
-  private xyz: Position;
-  private toxyz: Position;
-  private useBlockxyz: Position;
-  private readonly client: Client;
-  private i: number;
-  public SlowMode: boolean;
   private commands: string[];
   private coreSize: int;
 
   constructor (bot: Bot, coreName: string, coreColor: string, SlowMode?: boolean) {
-    this.bot = bot;
-    this.xyz = bot.entity.position.floored();
-    this.toxyz = { x: this.xyz.x + 3, y: this.xyz.y + 3, z: this.xyz.z + 3 };
-    this.useBlockxyz = { ...this.xyz };
-    this.client = this.bot._client;
-    this.i = 1;
-    this.core = {
-      name: coreName,
-      color: coreColor
-    }
-    this.SlowMode = SlowMode || true
     this.commands = [];
     this.coreSize = (Math.abs(this.toxyz.x - this.xyz.x) + 1) * (Math.abs(this.toxyz.y - this.xyz.y) + 1) * (Math.abs(this.toxyz.z - this.xyz.z) + 1);
-    this.refillCore();
   }
 
   async execute(): Promise<void> {
